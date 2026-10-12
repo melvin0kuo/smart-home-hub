@@ -1,0 +1,3 @@
+# 可選：在實際具備藍牙的主機安裝，主 requirements.txt 仍須先安裝。
+bleak==3.0.1
+cryptography==50.0.2

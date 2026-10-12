@@ -1,0 +1,1038 @@
+/* 依操作情境調整版面：桌面側欄、平板導覽列、手機底部導覽。 */
+:root {
+  --muted: #64766d;
+}
+button {
+  touch-action: manipulation;
+}
+.main-content,
+.page,
+.device-card,
+.card-title > div {
+  min-width: 0;
+}
+.page {
+  max-width: 1560px;
+  margin: 0 auto;
+}
+.page-heading h1 {
+  font-size: 30px;
+  letter-spacing: -0.8px;
+}
+.page-heading p:not(.eyebrow),
+.section-heading p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.sidebar nav button {
+  min-height: 48px;
+  font-size: 14px;
+}
+.topbar strong,
+.topbar .breadcrumb,
+.event-status {
+  font-size: 13px;
+}
+.mode-banner {
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+.mode-banner strong {
+  font-size: 12px;
+}
+.mode-banner .version {
+  display: none;
+}
+.summary-card p,
+.summary-caption {
+  font-size: 12px;
+}
+.summary-card strong {
+  font-size: 28px;
+}
+.summary-grid {
+  gap: 16px;
+}
+.section-heading h2 {
+  font-size: 20px;
+}
+.section-heading {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.scene-grid strong {
+  font-size: 15px;
+}
+.scene-grid small {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.scene-grid > button {
+  min-height: 82px;
+}
+.device-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.device-card {
+  border-radius: 18px;
+  padding: 22px 22px 0;
+}
+.device-card.wide {
+  grid-column: 1 / -1;
+}
+.card-title h3 {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+.card-title p,
+.model,
+.model span,
+.status {
+  font-size: 12px;
+}
+.card-title {
+  gap: 14px;
+}
+.device-card > footer,
+.device-card > footer small {
+  font-size: 12px;
+}
+.device-note {
+  margin: 0 -22px;
+  padding: 14px 22px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.device-note summary {
+  cursor: pointer;
+  min-height: 24px;
+}
+.device-note p {
+  padding-top: 10px;
+}
+.device-card.unavailable {
+  opacity: 1;
+}
+.device-card.unavailable .status {
+  color: #916336;
+}
+.toggle {
+  width: 50px;
+  height: 30px;
+  flex-shrink: 0;
+  position: relative;
+}
+.toggle::after {
+  content: "";
+  position: absolute;
+  inset: -7px 0;
+}
+.toggle span {
+  width: 22px;
+  height: 22px;
+}
+.toggle.on span {
+  transform: translateX(20px);
+}
+.outlets {
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.outlets > div {
+  padding: 16px 12px;
+  font-size: 12px;
+  min-height: 90px;
+}
+.outlets .toggle {
+  transform: none;
+}
+.outlet-info strong {
+  font-size: 14px;
+}
+.outlet-info small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.range-label,
+.range-label strong {
+  font-size: 14px;
+}
+.range-label input {
+  height: 36px;
+}
+.range-label {
+  margin: 18px 0;
+}
+.room-tabs {
+  overflow-x: auto;
+  display: flex;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+.room-tabs button {
+  min-height: 44px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.search-box {
+  min-height: 44px;
+}
+.search-box input {
+  width: 190px;
+  font-size: 14px;
+}
+.attention-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid #e2d2b5;
+  background: #fbf5e9;
+  border-radius: 14px;
+  margin: 24px 0;
+  color: #7a5b2c;
+}
+.attention-banner > svg {
+  flex-shrink: 0;
+}
+.attention-banner strong {
+  font-size: 14px;
+}
+.attention-banner p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.attention-banner button {
+  margin-left: auto;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+}
+.camera-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 24px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.secondary-action {
+  background: var(--pale);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px 18px;
+  min-height: 44px;
+}
+.view-camera .device-grid {
+  grid-template-columns: 1fr;
+}
+.camera-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 20px;
+  margin: 20px 0;
+  align-items: start;
+}
+.camera-workspace .camera-player {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.camera-workspace .privacy-control {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+}
+.camera-workspace > [aria-label="攝影機方向控制"] {
+  grid-column: 2;
+  grid-row: 2;
+}
+.camera-workspace .camera-placeholder {
+  height: auto;
+  min-height: 220px;
+  aspect-ratio: 16 / 9;
+  padding: 20px;
+  text-align: center;
+}
+.camera-workspace .camera-placeholder strong {
+  font-size: 16px;
+}
+.camera-actions button {
+  min-height: 44px;
+  font-size: 14px;
+  background: var(--panel);
+}
+.camera-player small,
+[aria-label="攝影機方向控制"] > small {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+[aria-label="攝影機方向控制"] .camera-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas: ". up ." "left stop right" ". down .";
+  gap: 8px;
+}
+[aria-label="攝影機方向控制"] button {
+  padding: 10px 4px;
+}
+[aria-label="攝影機方向控制"] button:nth-child(1) {
+  grid-area: left;
+}
+[aria-label="攝影機方向控制"] button:nth-child(2) {
+  grid-area: up;
+}
+[aria-label="攝影機方向控制"] button:nth-child(3) {
+  grid-area: down;
+}
+[aria-label="攝影機方向控制"] button:nth-child(4) {
+  grid-area: right;
+}
+[aria-label="攝影機方向控制"] button:nth-child(5) {
+  grid-area: stop;
+  color: #b04d3e;
+  border-color: #ce9d94;
+}
+.privacy-control {
+  font-size: 14px;
+}
+.activity-list strong {
+  font-size: 14px;
+}
+.activity-list > div > div > span,
+.activity-list time,
+.result,
+.empty-activity {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.integration-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+.integration-list > div {
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+.integration-list span {
+  float: right;
+  color: var(--muted);
+}
+.integration-list p {
+  font-size: 13px;
+}
+.mobile-nav,
+.mobile-more {
+  display: none;
+}
+[data-theme="dark"] .attention-banner {
+  background: #342f22;
+  border-color: #665530;
+  color: #ebcf92;
+}
+@media (min-width: 1600px) {
+  .view-devices .device-grid,
+  .view-overview .device-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+/* 平板保留固定側欄，縮成圖示導覽，留出雙欄卡片空間。 */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .app-shell {
+    display: block;
+  }
+  .sidebar {
+    display: flex;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 88px;
+    height: 100dvh;
+    padding: 24px 10px;
+    border-right: 1px solid var(--border);
+    background: var(--panel);
+  }
+  .sidebar .brand {
+    justify-content: center;
+  }
+  .sidebar .brand > div,
+  .sidebar .home-selector,
+  .sidebar .nav-label,
+  .sidebar .sidebar-bottom,
+  .sidebar .nav-dot {
+    display: none;
+  }
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    gap: 10px;
+    overflow: visible;
+  }
+  .sidebar nav button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 3px;
+    font-size: 11px;
+    min-height: 66px;
+  }
+  .sidebar nav svg {
+    width: 22px;
+    height: 22px;
+  }
+  .main-content {
+    margin-left: 88px;
+  }
+  .page {
+    padding: 28px 24px 0;
+  }
+  .topbar {
+    padding: 0 24px;
+  }
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .device-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .outlets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .camera-workspace {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 16px;
+  }
+  .device-card {
+    padding: 20px 18px 0;
+  }
+  .device-note {
+    margin: 0 -18px;
+    padding: 14px 18px;
+  }
+  .mobile-logout {
+    display: grid;
+  }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  .camera-workspace {
+    display: flex;
+    flex-direction: column;
+  }
+  .camera-workspace > * {
+    width: 100%;
+  }
+}
+/* 手機底部導覽與單欄控制，預留安全區域避免遮住內容。 */
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+  .topbar {
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: var(--panel);
+    padding: 0 16px;
+  }
+  .topbar .breadcrumb,
+  .topbar > div:first-child > svg {
+    display: none;
+  }
+  .topbar > div {
+    gap: 8px;
+  }
+  .topbar strong {
+    font-size: 16px;
+  }
+  .event-status {
+    padding: 8px;
+  }
+  .event-status > span {
+    display: none;
+  }
+  .icon-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .mobile-logout {
+    display: grid;
+  }
+  .page {
+    padding: 24px 16px calc(90px + env(safe-area-inset-bottom));
+  }
+  .page-heading {
+    margin-bottom: 20px;
+  }
+  .page-heading .eyebrow {
+    display: none;
+  }
+  .page-heading h1 {
+    font-size: 27px;
+    letter-spacing: -0.5px;
+  }
+  .page-heading p:not(.eyebrow) {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .date-label {
+    display: none;
+  }
+  .mode-banner {
+    padding: 12px;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .mode-banner > span:not(.version) {
+    padding-left: 0;
+  }
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .summary-card {
+    padding: 14px 12px;
+    min-width: 0;
+  }
+  .summary-card p,
+  .summary-caption {
+    font-size: 11px;
+  }
+  .summary-card strong {
+    font-size: 26px;
+  }
+  .summary-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .attention-banner {
+    flex-wrap: wrap;
+    padding: 14px;
+    gap: 10px;
+  }
+  .attention-banner > div {
+    flex: 1;
+  }
+  .attention-banner button {
+    margin-left: 30px;
+  }
+  .section-heading {
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .section-heading h2 {
+    font-size: 19px;
+  }
+  .section-heading .search-box,
+  .search-box {
+    width: 100%;
+    max-width: none;
+  }
+  .search-box input {
+    width: 100%;
+    font-size: 16px;
+  }
+  .device-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .device-card.wide {
+    grid-column: auto;
+  }
+  .device-card {
+    padding: 20px 16px 0;
+  }
+  .device-note {
+    margin: 0 -16px;
+    padding: 14px 16px;
+  }
+  .card-title h3 {
+    font-size: 20px;
+  }
+  .outlets {
+    grid-template-columns: 1fr;
+  }
+  .outlets > div {
+    min-height: 76px;
+    padding: 14px;
+  }
+  .outlets > div > span {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .outlet-info strong {
+    font-size: 15px;
+  }
+  .scene-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .scene-grid > button {
+    padding: 14px 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .scene-grid strong {
+    font-size: 14px;
+  }
+  .scene-grid small {
+    font-size: 11px;
+  }
+  .camera-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .camera-workspace > * {
+    width: 100%;
+  }
+  .camera-workspace .camera-player {
+    order: 0;
+  }
+  .camera-workspace .privacy-control {
+    order: 1;
+  }
+  .camera-workspace > [aria-label="攝影機方向控制"] {
+    order: 2;
+  }
+  .camera-workspace .camera-placeholder {
+    min-height: 160px;
+  }
+  [aria-label="攝影機方向控制"] .camera-actions {
+    max-width: 360px;
+    margin: 12px auto;
+  }
+  [aria-label="攝影機方向控制"] button {
+    min-height: 52px;
+  }
+  .camera-actions button {
+    flex: 1 1 auto;
+  }
+  .activity-panel {
+    padding: 16px;
+  }
+  .activity-list > div {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .activity-list > div > div {
+    flex: 1;
+    min-width: 150px;
+  }
+  .activity-list time {
+    margin-left: auto;
+  }
+  .activity-icon {
+    display: none;
+  }
+  .page-footer {
+    font-size: 11px;
+    gap: 14px;
+    line-height: 1.8;
+  }
+  .setup-panel {
+    padding: 20px;
+    line-height: 1.9;
+  }
+  .setup-panel h2 {
+    font-size: 21px;
+  }
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -5px 25px #00000008;
+  }
+  .mobile-nav button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 54px;
+    font-size: 11px;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 12px;
+  }
+  .mobile-nav button.selected {
+    color: var(--green);
+    background: var(--pale);
+  }
+  .mobile-more {
+    display: grid;
+    position: fixed;
+    z-index: 31;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    left: 16px;
+    right: 16px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 18px;
+    box-shadow: 0 8px 40px #0002;
+    gap: 8px;
+  }
+  .mobile-more > strong {
+    padding: 4px 8px 8px;
+    font-size: 14px;
+  }
+  .mobile-more button {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    gap: 12px;
+    padding: 12px;
+    text-align: left;
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  .mobile-more button svg:last-child {
+    margin-left: auto;
+  }
+}
+
+/* 專用攝影機頁減少重複標題，讓影像與方向鍵更靠近頁面頂端。 */
+.summary-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.view-camera .devices-section > .section-heading {
+  display: none;
+}
+.camera-card > header {
+  float: right;
+  margin: 0 0 12px 12px;
+}
+.camera-card > header .device-icon {
+  display: none;
+}
+.camera-card > .model {
+  margin-top: 6px;
+}
+.camera-workspace {
+  clear: both;
+  grid-template-rows: auto 1fr;
+}
+.camera-workspace .camera-player .camera-placeholder {
+  margin-top: 0;
+}
+.card-title p span {
+  font-size: 12px;
+}
+[data-theme="dark"] {
+  --muted: #a5b7ac;
+}
+@media (max-width: 767px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.view-infrared .device-card h3 {
+  font-size: 20px;
+  margin: 12px 0 8px;
+}
+.view-infrared .device-card > p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.remote-note {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+  padding: 12px 0;
+}
+.remote-note summary {
+  cursor: pointer;
+  min-height: 32px;
+}
+.view-infrared .camera-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 22px;
+}
+.view-infrared .camera-actions button {
+  padding: 12px 6px;
+}
+
+.dehumidifier-controls select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--panel);
+  color: inherit;
+  font: inherit;
+}
+.dehumidifier-controls select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.dehumidifier-controls small {
+  line-height: 1.6;
+}
+
+/* 同高捷徑與獨立詳情，避免長卡片把整列撐高。 */
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.device-shortcut {
+  height: 270px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.shortcut-open {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  text-align: left;
+  padding: 18px;
+  background: transparent;
+  color: var(--text);
+}
+.shortcut-open:hover {
+  background: var(--pale);
+}
+.shortcut-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.shortcut-top .device-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+.shortcut-open small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.shortcut-open h3 {
+  font-size: 17px;
+  margin: 6px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shortcut-open p {
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 0 10px;
+}
+.shortcut-detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--green);
+  font-size: 12px;
+}
+.shortcut-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 60px;
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-top: 1px solid var(--border);
+}
+.shortcut-actions label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+  font-size: 12px;
+  min-width: 0;
+}
+.shortcut-actions label > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shortcut-actions .toggle {
+  min-height: 32px;
+  flex-shrink: 0;
+}
+.shortcut-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+.device-details {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(600px, 100vw);
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  color: var(--text);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: -12px 0 60px #0003;
+}
+.device-details::backdrop {
+  background: #071a1466;
+  backdrop-filter: blur(3px);
+}
+.detail-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.detail-header button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--pale);
+  color: var(--text);
+  white-space: nowrap;
+}
+.detail-header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+.detail-content {
+  padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
+}
+.device-details .device-card {
+  width: 100%;
+  min-width: 0;
+}
+.device-details .camera-workspace {
+  display: block;
+}
+.detail-content > .secondary-action {
+  width: 100%;
+  margin-top: 16px;
+  min-height: 44px;
+}
+.detail-notice {
+  padding: 12px;
+  color: var(--green);
+  background: var(--pale);
+  border-radius: 12px;
+  font-size: 14px;
+}
+@media (max-width: 767px) {
+  .shortcut-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .device-shortcut {
+    height: 260px;
+    border-radius: 16px;
+  }
+  .shortcut-open {
+    padding: 12px;
+  }
+  .shortcut-open h3 {
+    font-size: 15px;
+  }
+  .shortcut-top {
+    gap: 4px;
+  }
+  .shortcut-top .status {
+    font-size: 10px;
+  }
+  .shortcut-top .device-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .shortcut-actions {
+    height: 88px;
+    padding: 6px 12px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+  }
+  .shortcut-actions label {
+    width: 100%;
+    min-height: 36px;
+    flex: 0;
+  }
+  .device-details {
+    inset: 0;
+    width: 100%;
+  }
+  .detail-header {
+    padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+  }
+  .detail-content {
+    padding: 12px 12px calc(20px + env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 350px) {
+  .shortcut-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .device-shortcut {
+    height: 274px;
+  }
+  .shortcut-actions {
+    height: 100px;
+  }
+  .shortcut-actions label {
+    min-height: 44px;
+  }
+  .shortcut-actions .toggle {
+    position: relative;
+  }
+  .shortcut-actions .toggle::after {
+    content: "";
+    position: absolute;
+    inset: -6px 0;
+  }
+}

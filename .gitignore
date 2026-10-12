@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+backend/data/
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+*.log
+.local/
+
+*.tsbuildinfo
+compose.override.yaml
+compose.override.yml

@@ -1,0 +1,5 @@
+node_modules
+node_modules.initial
+dist
+test-results
+playwright-report

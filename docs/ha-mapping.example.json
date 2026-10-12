@@ -1,0 +1,28 @@
+{
+  "devices": [
+    {
+      "device": {
+        "id": "real-lamp",
+        "name": "書房檯燈",
+        "manufacturer": "Xiaomi",
+        "model": "請填實際型號",
+        "type": "light",
+        "room": "書房",
+        "source": "home_assistant",
+        "verification_status": "pending",
+        "state_confidence": "unknown",
+        "capabilities": [
+          {
+            "name": "switch",
+            "target": "main",
+            "writable": false,
+            "verification_status": "pending"
+          }
+        ]
+      },
+      "entities": {
+        "main": "light.replace_with_actual_entity"
+      }
+    }
+  ]
+}
