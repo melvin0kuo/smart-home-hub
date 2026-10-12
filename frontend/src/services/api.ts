@@ -6,6 +6,7 @@ import type {
   Session,
 } from "../types/device";
 import type { ImportDiscovery, ImportItem } from "../types/imports";
+import type { OnboardingData } from "../types/onboarding";
 let csrf = "";
 export class ApiError extends Error {
   constructor(
@@ -49,6 +50,8 @@ async function session(path: string, body?: unknown) {
   return result;
 }
 export const api = {
+  onboarding: () =>
+    request<OnboardingData>("/integrations/home-assistant/onboarding"),
   importCandidates: () =>
     request<ImportDiscovery>("/integrations/home-assistant/candidates"),
   testImportSwitch: (entity_id: string, action: "turn_on" | "turn_off") =>

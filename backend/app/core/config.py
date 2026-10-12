@@ -28,10 +28,15 @@ class Settings(BaseSettings):
         "http://localhost:8080",
     ]
     ha_url: str = ""
+    ha_browser_url: str = ""
     ha_token: SecretStr = SecretStr("")
 
     @model_validator(mode="after")
     def validate_secrets(self):
+        if self.ha_browser_url:
+            from app.services.onboarding import browser_url
+
+            browser_url(self.ha_browser_url)
         if len(self.hub_admin_password.get_secret_value()) < 12:
             raise ValueError("平台密碼至少需要 12 個字元")
         if len(self.hub_session_secret.get_secret_value()) < 32:

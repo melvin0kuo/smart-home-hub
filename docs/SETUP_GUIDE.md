@@ -24,6 +24,8 @@ v0.1.0 先從 [README](../README.md) 啟動 Mock，再按 [HA 安裝指南](HOME
 
 ## 4. 私有映射
 
+「新增裝置 → 探索與配對」可搜尋目前 HA 的品牌／協定並開啟 HA 設定流程。手機與平板請設定可達的 `HA_BROWSER_URL`，不要沿用電腦 localhost。完整步驟與限制見 [通用新增指南](DEVICE_ONBOARDING.md)。
+
 一般開關與感測器現在可使用網頁「新增裝置」，不需先建立映射檔。請先完成下一節的 Real Mode 連線設定，`HUB_MAPPING_FILE` 留空即可。操作方式見 [網頁匯入指南](DEVICE_IMPORT.md)。以下私有 JSON 適用於多實體及專屬進階能力，既有設定仍可保留。
 
 複製 docs/ha-mapping.example.json 到 .local/ha-mapping.json，從 HA 實體清單取得自己的 Entity ID，替換範例 ID、型號、名稱與房間。設備 ID 保持穩定，target 對應 Entity，同一 Entity 不重複映射。

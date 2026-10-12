@@ -216,6 +216,164 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.onboarding-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 5px;
+  background: var(--bg);
+  border-radius: 14px;
+}
+.onboarding-tabs button[aria-pressed="true"] {
+  background: var(--green);
+  color: white;
+}
+.onboarding-page,
+.onboarding-guide {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.onboarding-page h3,
+.onboarding-guide h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+.onboarding-explainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  background: var(--pale);
+  border-radius: 14px;
+}
+.onboarding-explainer > svg {
+  flex-shrink: 0;
+  color: var(--green);
+}
+.onboarding-explainer p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 8px 0 0;
+}
+.onboarding-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.onboarding-heading h3 {
+  margin: 0;
+}
+.onboarding-discovery,
+.onboarding-guide {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.onboarding-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+.onboarding-search input {
+  min-width: 0;
+}
+.onboarding-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.import-content button.onboarding-option {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.onboarding-option:hover {
+  border-color: var(--green);
+}
+.onboarding-option-label {
+  display: grid;
+  gap: 5px;
+  overflow-wrap: anywhere;
+}
+.onboarding-option small,
+.onboarding-discovered small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.onboarding-status {
+  color: var(--green);
+  font-size: 12px;
+}
+.onboarding-links,
+.onboarding-databases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.onboarding-databases h3,
+.onboarding-databases p {
+  width: 100%;
+  margin: 0;
+}
+.onboarding-page a,
+.onboarding-guide a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--pale);
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: none;
+}
+.onboarding-guide a.import-primary {
+  background: var(--green);
+  color: white;
+}
+.onboarding-checklist {
+  padding-left: 22px;
+  margin: 0;
+}
+.onboarding-checklist li {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.onboarding-checklist p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+.onboarding-discovered {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+}
+.onboarding-discovered span {
+  display: grid;
+  gap: 6px;
+}
+.onboarding-url-notice {
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+}
 @media (max-width: 767px) {
   .import-dialog {
     width: 100%;
@@ -223,6 +381,14 @@
   .import-candidates,
   .import-fields {
     grid-template-columns: 1fr;
+  }
+  .onboarding-catalog {
+    grid-template-columns: 1fr;
+  }
+  .onboarding-heading,
+  .onboarding-discovered {
+    align-items: flex-start;
+    flex-direction: column;
   }
   .import-steps {
     gap: 8px;

@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.core.errors import HubError
 from app.services.imports import ImportItem
+from app.services.onboarding import OnboardingService
 
 router = APIRouter(prefix="/api/integrations/home-assistant", tags=["裝置匯入"])
 
@@ -25,6 +26,13 @@ class TestSwitch(BaseModel):
 class ImportDevices(BaseModel):
     model_config = ConfigDict(extra="forbid")
     devices: list[ImportItem] = Field(min_length=1, max_length=50)
+
+
+@router.get("/onboarding", dependencies=[Depends(admin)])
+async def onboarding(request: Request):
+    settings = request.app.state.settings
+    ha = getattr(request.app.state.provider, "client", None)
+    return await OnboardingService(ha, settings.hub_mode, settings.ha_browser_url or settings.ha_url).load()
 
 
 @router.get("/candidates", dependencies=[Depends(admin)])

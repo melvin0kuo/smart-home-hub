@@ -53,6 +53,42 @@ class HAClient:
             "POST", f"api/services/{domain}/{service}", json={"entity_id": entity_id, **parameters}
         )
 
+    async def onboarding_read(self, command):
+        """固定唯讀命令，禁止由瀏覽器傳入任意 WebSocket 操作。"""
+        if command not in {"integration/descriptions", "config_entries/flow/progress"}:
+            raise ValueError("不允許的探索命令")
+        parsed = urlsplit(self.url)
+        url = urlunsplit(
+            (
+                "wss" if parsed.scheme == "https" else "ws",
+                parsed.netloc,
+                parsed.path.rstrip("/") + "/api/websocket",
+                "",
+                "",
+            )
+        )
+        try:
+            async with connect(url, open_timeout=5, close_timeout=2, max_size=8 * 1024 * 1024) as ws:
+
+                async def receive():
+                    return json.loads(await asyncio.wait_for(ws.recv(), 8))
+
+                if (await receive()).get("type") != "auth_required":
+                    raise ValueError()
+                await ws.send(json.dumps({"type": "auth", "access_token": self.token}))
+                if (await receive()).get("type") != "auth_ok":
+                    raise ValueError()
+                await ws.send(json.dumps({"id": 1, "type": command}))
+                result = await receive()
+                if result.get("id") != 1 or not result.get("success"):
+                    raise ValueError()
+                payload = result.get("result")
+                if not isinstance(payload, dict if command == "integration/descriptions" else list):
+                    raise ValueError()
+                return payload
+        except (OSError, WebSocketException, asyncio.TimeoutError, ValueError, TypeError, AttributeError):
+            raise HubError(502, "ONBOARDING_UNAVAILABLE", "無法取得 HA 整合或探索資料。") from None
+
     async def entity_registry(self):
         """僅讀取實體分類，避免將設定及診斷開關當成電源。"""
         parsed = urlsplit(self.url)

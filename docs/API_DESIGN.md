@@ -10,6 +10,8 @@
 
 ## 已實作端點
 
+`GET /api/integrations/home-assistant/onboarding`：僅管理員，回傳 `mode`、`catalog_status`、`discovery_status`、`catalog`、`discovered`、`warnings` 與 `local_only_url`。目錄與探索獨立降級，僅查詢，不建立配對流程。`setup_url` 為無憑證的 HA 瀏覽器連結；Mock／缺少整合時為 null。品牌設定仍在 HA 進行。見 [通用新增指南](DEVICE_ONBOARDING.md)。
+
 | 方法 | 路徑 | 行為 |
 | --- | --- | --- |
 | GET | /api/health | status、mode、integration_connected；HA 斷線為 degraded |
