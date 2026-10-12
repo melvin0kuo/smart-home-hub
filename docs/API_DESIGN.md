@@ -24,6 +24,14 @@
 
 ## 設備與能力
 
+## 裝置匯入精靈（2026-10-13 新增）
+
+僅管理員可用：`GET /api/integrations/home-assistant/candidates` 回傳 mode、connected、過濾後候選。`POST /api/integrations/home-assistant/test` 接受 entity_id（僅 light／switch）、action（turn_on／turn_off）、confirmed_safe=true，需新的目標狀態才能 confirmed。`POST /api/integrations/home-assistant/import` 接受 `devices` 陣列（1–50），每筆為 entity_id、name、room、protected（預設 true）、enable_control（預設 false）。
+
+所有寫入保留 CSRF；候選由後端重新取得，瀏覽器不能指定能力或任意服務。既有映射禁止覆蓋；控制需十分鐘內雙向證明。錯誤包含 ALREADY_IMPORTED、TEST_NOT_ALLOWED、NO_STATE_CHANGE、VERIFICATION_REQUIRED、IMPORT_STORAGE_ERROR。詳見 [匯入指南](DEVICE_IMPORT.md)。
+
+## 設備欄位
+
 欄位：id、name、manufacturer、model、type、room、online、available、state、capabilities、attributes、source、last_updated，另加 verification_status、state_confidence、stale。source 僅 mock／home_assistant。
 
 capability 包含 name、target（預設 main）、readable、writable、verification_status（mock／verified／pending／unsupported）、minimum、maximum、unit。只有 writable 且 mock／verified、設備 available 且非 stale 的能力才可操作；Real 映射不得使用 mock。

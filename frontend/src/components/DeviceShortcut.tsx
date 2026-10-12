@@ -10,6 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { canControl, type Action, type Device } from "../types/device";
+import { sensorReadings } from "../services/sensorReadings";
 
 export function DeviceShortcut({
   device,
@@ -85,19 +86,23 @@ export function DeviceShortcut({
   const summary =
     device.type === "diffuser"
       ? `電量 ${device.attributes.battery ?? "—"}% · 燈光${device.attributes.light_on == null ? "待確認" : device.attributes.light_on ? "開" : "關"}`
-      : ["sensor", "dehumidifier"].includes(device.type)
-        ? device.attributes.water_tank_full === true
-          ? "水箱已滿，請檢查並倒水"
-          : `${device.attributes.temperature ?? "—"}°C · 濕度 ${device.attributes.humidity ?? "—"}%`
-        : device.type === "camera"
-          ? device.attributes.privacy_enabled === true
-            ? "隱私模式已開啟"
-            : "點選查看影像與控制"
-          : device.type === "power_strip"
-            ? "獨立插孔 · 重要電源已鎖定"
-            : device.type === "gateway"
-              ? "子設備與紅外線遙控"
-              : status;
+      : device.type === "sensor"
+        ? sensorReadings(device)
+            .map((r) => `${r.label} ${r.value}${r.unit}`)
+            .join(" · ") || "尚未取得感測能力"
+        : device.type === "dehumidifier"
+          ? device.attributes.water_tank_full === true
+            ? "水箱已滿，請檢查並倒水"
+            : `${device.attributes.temperature ?? "—"}°C · 濕度 ${device.attributes.humidity ?? "—"}%`
+          : device.type === "camera"
+            ? device.attributes.privacy_enabled === true
+              ? "隱私模式已開啟"
+              : "點選查看影像與控制"
+            : device.type === "power_strip"
+              ? "獨立插孔 · 重要電源已鎖定"
+              : device.type === "gateway"
+                ? "子設備與紅外線遙控"
+                : status;
   return (
     <article className="device-shortcut" data-device-id={device.id}>
       <button

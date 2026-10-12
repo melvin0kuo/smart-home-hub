@@ -5,6 +5,7 @@ import type {
   Scene,
   Session,
 } from "../types/device";
+import type { ImportDiscovery, ImportItem } from "../types/imports";
 let csrf = "";
 export class ApiError extends Error {
   constructor(
@@ -48,6 +49,24 @@ async function session(path: string, body?: unknown) {
   return result;
 }
 export const api = {
+  importCandidates: () =>
+    request<ImportDiscovery>("/integrations/home-assistant/candidates"),
+  testImportSwitch: (entity_id: string, action: "turn_on" | "turn_off") =>
+    request<{
+      status: string;
+      state: string;
+      tested_actions: string[];
+      mode: string;
+    }>("/integrations/home-assistant/test", {
+      entity_id,
+      action,
+      confirmed_safe: true,
+    }),
+  importDevices: (devices: ImportItem[]) =>
+    request<{ status: string; devices: Device[]; mode: string }>(
+      "/integrations/home-assistant/import",
+      { devices },
+    ),
   cameraPtz: (
     id: string,
     direction: "left" | "right" | "up" | "down" | "stop",

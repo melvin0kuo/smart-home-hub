@@ -55,7 +55,10 @@ class RealProvider:
         self.connected = False
         self.cache = {}
         self.revisions = {}
-        mapping = MappingFile.model_validate_json(Path(settings.hub_mapping_file).read_text(encoding="utf8"))
+        mapping = (
+            MappingFile.model_validate_json(Path(settings.hub_mapping_file).read_text(encoding="utf8"))
+            if settings.hub_mapping_file else MappingFile(devices=[])
+        )
         self.records, self.remotes = mapping.devices, mapping.remotes
         if len({remote.id for remote in self.remotes}) != len(self.remotes):
             raise ValueError("紅外線設備 ID 重複")

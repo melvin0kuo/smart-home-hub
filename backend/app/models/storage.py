@@ -27,6 +27,12 @@ class EntityMapping(Base):
     verified: Mapped[int] = mapped_column(Integer, default=0)
 
 
+class ImportedDevice(Base):
+    __tablename__ = "imported_devices"
+    key: Mapped[str] = mapped_column(String, primary_key=True)
+    payload: Mapped[dict] = mapped_column(JSON)
+
+
 class OperationLog(Base):
     __tablename__ = "operations"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)

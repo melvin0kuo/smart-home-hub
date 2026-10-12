@@ -14,6 +14,7 @@ import {
   Moon,
   MoreHorizontal,
   Plug,
+  Plus,
   Radio,
   Search,
   ShieldCheck,
@@ -31,6 +32,7 @@ import { DeviceShortcut } from "../components/DeviceShortcut";
 import { DeviceDetails } from "../components/DeviceDetails";
 import { DeviceCard } from "../components/DeviceCard";
 import { InfraredPanel } from "../components/InfraredPanel";
+import { DeviceImportWizard } from "../components/DeviceImportWizard";
 type View = "overview" | "devices" | "power" | "camera" | "infrared" | "setup";
 export function Dashboard({
   session,
@@ -52,6 +54,7 @@ export function Dashboard({
     }),
     scenes = useQuery({ queryKey: ["scenes"], queryFn: api.scenes, retry: 1 });
   const [detailId, setDetailId] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
   const [view, setView] = useState<View>("overview"),
     [room, setRoom] = useState("全部空間"),
     [search, setSearch] = useState(""),
@@ -368,7 +371,8 @@ export function Dashboard({
                 <li>移植樹莓派時，依專案啟動指南重建環境。</li>
               </ol>
               <p>
-                攝影機與紅外線遙控依已驗證能力開放；香氛機仍需相容網關與實機驗證。
+                可使用「新增裝置」匯入 HA
+                實體；攝影機、紅外線及藍牙專屬功能依各設備的驗證結果開放。
               </p>
               <div className="integration-list">
                 {all.map((d) => (
@@ -531,15 +535,26 @@ export function Dashboard({
                     </p>
                   </div>
                   {(view === "devices" || view === "overview") && (
-                    <label className="search-box">
-                      <Search size={16} />
-                      <input
-                        aria-label="搜尋設備"
-                        placeholder="搜尋設備或型號"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
-                    </label>
+                    <div className="device-list-tools">
+                      {session.role === "admin" && (
+                        <button
+                          className="add-device-button"
+                          onClick={() => setImportOpen(true)}
+                        >
+                          <Plus size={17} />
+                          新增裝置
+                        </button>
+                      )}
+                      <label className="search-box">
+                        <Search size={16} />
+                        <input
+                          aria-label="搜尋設備"
+                          placeholder="搜尋設備或型號"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                        />
+                      </label>
+                    </div>
                   )}
                 </div>
                 {(view === "devices" || view === "overview") && (
@@ -687,6 +702,15 @@ export function Dashboard({
           </footer>
         </section>
       </main>
+      {importOpen && (
+        <DeviceImportWizard
+          onClose={() => setImportOpen(false)}
+          onImported={async () => {
+            await refresh();
+            navigate("devices");
+          }}
+        />
+      )}
       {detailId && all.find((d) => d.id === detailId) && (
         <DeviceDetails
           device={all.find((d) => d.id === detailId)!}

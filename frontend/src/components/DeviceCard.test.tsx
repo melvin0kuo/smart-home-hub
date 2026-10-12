@@ -3,6 +3,57 @@ import { expect, it } from "vitest";
 import { DeviceCard } from "./DeviceCard";
 import type { Device } from "../types/device";
 
+it("唯讀開關保留電源狀態，不顯示可操作開關", () => {
+  const device = {
+    id: "switch",
+    name: "唯讀電源",
+    type: "switch",
+    source: "home_assistant",
+    state: "on",
+    available: true,
+    online: true,
+    capabilities: [
+      {
+        name: "switch",
+        target: "main",
+        writable: false,
+        verification_status: "pending",
+      },
+    ],
+    attributes: {},
+  } as Device;
+  const html = renderToStaticMarkup(
+    <DeviceCard device={device} readOnly={false} onAction={async () => {}} />,
+  );
+  expect(html).toContain("電源已開啟");
+  expect(html).not.toContain('role="switch"');
+});
+
+it("獨立匯入功率感測器顯示瓦數，不顯示不存在的溫濕度", () => {
+  const device = {
+    id: "power",
+    name: "功率",
+    type: "sensor",
+    source: "home_assistant",
+    capabilities: [
+      {
+        name: "power_monitoring",
+        target: "main",
+        writable: false,
+        verification_status: "verified",
+      },
+    ],
+    attributes: { power_w: 250 },
+  } as Device;
+  const html = renderToStaticMarkup(
+    <DeviceCard device={device} readOnly={false} onAction={async () => {}} />,
+  );
+  expect(html).toContain("250");
+  expect(html).toContain("即時功率");
+  expect(html).not.toContain("室內溫度");
+  expect(html).not.toContain("相對濕度");
+});
+
 it("燈具沒有回報亮度或色溫時，不把滑桿最低值當成目前讀值", () => {
   const device = {
     id: "lamp",

@@ -5,6 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 
+from app.api.imports import router as imports_router
 from app.api.media import router as media_router
 from app.api.routes import router
 from app.core.config import ROOT, Settings
@@ -14,6 +15,7 @@ from app.integrations.mock import MockProvider
 from app.services.camera import CameraGateway
 from app.services.devices import DeviceService
 from app.services.events import EventBus
+from app.services.imports import ImportService
 from app.services.repository import Repository
 
 
@@ -41,6 +43,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.security = Security(settings, repository)
         app.state.cameras = CameraGateway()
         app.state.devices = DeviceService(provider, repository, bus)
+        app.state.imports = ImportService(provider, repository, bus, settings.hub_mode)
         task = asyncio.create_task(provider.run()) if settings.hub_mode == "real" else None
         try:
             yield
@@ -54,6 +57,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(title="Smart Home Hub 智慧家庭 API", version="0.1.0", lifespan=lifespan)
     app.include_router(router)
     app.include_router(media_router)
+    app.include_router(imports_router)
     if settings.hub_serve_frontend:
         # 只公開前端建置目錄，不允許將專案根目錄或秘密檔掛載為靜態內容。
         static = ROOT / "frontend" / "dist"

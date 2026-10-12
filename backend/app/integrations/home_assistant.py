@@ -53,6 +53,48 @@ class HAClient:
             "POST", f"api/services/{domain}/{service}", json={"entity_id": entity_id, **parameters}
         )
 
+    async def entity_registry(self):
+        """僅讀取實體分類，避免將設定及診斷開關當成電源。"""
+        parsed = urlsplit(self.url)
+        url = urlunsplit(
+            (
+                "wss" if parsed.scheme == "https" else "ws",
+                parsed.netloc,
+                parsed.path.rstrip("/") + "/api/websocket",
+                "",
+                "",
+            )
+        )
+        try:
+            async with connect(url, open_timeout=5, close_timeout=2, max_size=8 * 1024 * 1024) as ws:
+
+                async def receive():
+                    return json.loads(await asyncio.wait_for(ws.recv(), 5))
+
+                if (await receive()).get("type") != "auth_required":
+                    raise ValueError()
+                await ws.send(json.dumps({"type": "auth", "access_token": self.token}))
+                if (await receive()).get("type") != "auth_ok":
+                    raise ValueError()
+                await ws.send(json.dumps({"id": 1, "type": "config/entity_registry/list"}))
+                result = await receive()
+                rows = result.get("result")
+                if result.get("id") != 1 or not result.get("success") or not isinstance(rows, list):
+                    raise ValueError()
+                if any(
+                    not isinstance(row, dict) or not isinstance(row.get("entity_id"), str) for row in rows
+                ):
+                    raise ValueError()
+                return [
+                    {
+                        key: row.get(key, "unknown" if key == "entity_category" else None)
+                        for key in ("entity_id", "entity_category", "disabled_by", "hidden_by")
+                    }
+                    for row in rows
+                ]
+        except (OSError, WebSocketException, asyncio.TimeoutError, ValueError, TypeError, AttributeError):
+            raise HubError(502, "REGISTRY_UNAVAILABLE", "無法取得 HA 實體分類，僅開放唯讀匯入。") from None
+
     async def camera_stream(self, entity_id):
         parsed = urlsplit(self.url)
         url = urlunsplit(

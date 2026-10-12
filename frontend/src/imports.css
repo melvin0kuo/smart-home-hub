@@ -1,0 +1,250 @@
+.import-dialog {
+  width: min(760px, 100%);
+}
+.import-content {
+  display: grid;
+  gap: 18px;
+}
+.import-intro {
+  padding: 10px 0;
+}
+.import-intro h3 {
+  font-size: 24px;
+  margin: 12px 0 8px;
+}
+.import-intro p,
+.import-hint {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.import-icon {
+  display: inline-flex;
+  padding: 12px;
+  color: var(--green);
+  background: var(--pale);
+  border-radius: 16px;
+}
+.import-steps {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 14px;
+}
+.import-steps li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.import-steps b {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+.import-steps [aria-current] {
+  color: var(--green);
+  font-weight: 700;
+}
+.import-steps [aria-current] b {
+  background: var(--pale);
+}
+.import-toolbar {
+  display: flex;
+  gap: 10px;
+}
+.import-toolbar input {
+  min-width: 0;
+  flex: 1;
+}
+.import-content input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--panel);
+}
+.import-content button,
+.add-device-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: var(--pale);
+  border-radius: 10px;
+}
+.import-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.import-filters button {
+  background: var(--bg);
+}
+.import-filters button[aria-pressed="true"],
+.import-content .import-primary,
+.add-device-button {
+  background: var(--green);
+  color: white;
+}
+.import-candidates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.import-candidate {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.import-candidate:has(input:checked) {
+  border-color: var(--green);
+  background: var(--pale);
+}
+.import-content input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--green);
+  margin: 2px 0;
+}
+.import-candidate span {
+  min-width: 0;
+}
+.import-candidate strong {
+  display: block;
+  font-size: 15px;
+}
+.import-content code {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  margin: 6px 0;
+}
+.import-candidate small {
+  color: var(--green);
+}
+.import-candidate p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.import-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--border);
+}
+.import-actions span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.import-settings {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+}
+.import-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.import-fields label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+}
+.import-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 44px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.import-test {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px;
+}
+.import-test-buttons {
+  display: flex;
+  gap: 10px;
+}
+.import-test p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 12px 0;
+  line-height: 1.7;
+}
+.import-summary > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.import-summary span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.device-list-tools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  .import-dialog {
+    width: 100%;
+  }
+  .import-candidates,
+  .import-fields {
+    grid-template-columns: 1fr;
+  }
+  .import-steps {
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .import-steps li {
+    font-size: 11px;
+    gap: 4px;
+  }
+  .import-steps b {
+    width: 22px;
+    height: 22px;
+  }
+  .import-summary > div {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .device-list-tools {
+    width: 100%;
+  }
+  .device-list-tools .search-box {
+    flex: 1;
+    min-width: 160px;
+  }
+}

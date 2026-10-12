@@ -24,13 +24,15 @@ v0.1.0 先從 [README](../README.md) 啟動 Mock，再按 [HA 安裝指南](HOME
 
 ## 4. 私有映射
 
+一般開關與感測器現在可使用網頁「新增裝置」，不需先建立映射檔。請先完成下一節的 Real Mode 連線設定，`HUB_MAPPING_FILE` 留空即可。操作方式見 [網頁匯入指南](DEVICE_IMPORT.md)。以下私有 JSON 適用於多實體及專屬進階能力，既有設定仍可保留。
+
 複製 docs/ha-mapping.example.json 到 .local/ha-mapping.json，從 HA 實體清單取得自己的 Entity ID，替換範例 ID、型號、名稱與房間。設備 ID 保持穩定，target 對應 Entity，同一 Entity 不重複映射。
 
 範本預設 pending／writable=false，先唯讀查核。完成自己的實機測試後，才對該能力設 verification_status=verified、writable=true。路由器與電腦總電源等重要負載可保持唯讀；不可用 mock 冒充實測。
 
 ## 5. Real Mode
 
-停止平台，編輯 .env 的 HUB_MODE=real、HA_URL、HA_TOKEN、HUB_MAPPING_FILE，再啟動。HA_URL 不含 /api 或密碼；映射使用絕對路徑。保留平台的隨機密碼與 Session 密鑰。實際格式見 README。
+停止平台，編輯 .env 的 HUB_MODE=real、HA_URL、HA_TOKEN，再啟動。HA_URL 不含 /api 或密碼；HUB_MAPPING_FILE 可留空，若指定映射請使用絕對路徑。保留平台的隨機密碼與 Session 密鑰。實際格式見 README。
 
 先確認 health、列表與實機一致。命令須取得新狀態才 confirmed；逾時先看設備，不盲目重送。Real 不自動回退 Mock。
 

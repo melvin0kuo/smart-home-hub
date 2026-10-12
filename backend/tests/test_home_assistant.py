@@ -9,6 +9,39 @@ from app.core.errors import HubError
 from app.integrations.home_assistant import HAClient
 
 
+@pytest.mark.parametrize(
+    "payload,valid",
+    [
+        ([{"entity_id": "switch.demo", "entity_category": "config"}], True),
+        ([{"entity_id": "switch.demo"}], True),
+        ({"bad": True}, False),
+    ],
+)
+async def test_entity_registry_readonly_protocol(payload, valid):
+    import json
+
+    async def handler(ws):
+        await ws.send(json.dumps({"type": "auth_required"}))
+        auth = json.loads(await ws.recv())
+        assert auth == {"type": "auth", "access_token": "test-token"}
+        await ws.send(json.dumps({"type": "auth_ok"}))
+        command = json.loads(await ws.recv())
+        assert command == {"id": 1, "type": "config/entity_registry/list"}
+        await ws.send(json.dumps({"id": 1, "type": "result", "success": True, "result": payload}))
+
+    async with serve(handler, "127.0.0.1", 0) as server:
+        port = server.sockets[0].getsockname()[1]
+        client = HAClient(f"http://127.0.0.1:{port}", "test-token")
+        if valid:
+            assert (await client.entity_registry())[0]["entity_category"] == payload[0].get(
+                "entity_category", "unknown"
+            )
+        else:
+            with pytest.raises(HubError):
+                await client.entity_registry()
+        await client.close()
+
+
 async def test_states_and_authorization():
     def handler(request):
         assert request.headers["authorization"] == "Bearer test-token"

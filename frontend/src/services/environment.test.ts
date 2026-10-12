@@ -1,6 +1,14 @@
 import { expect, it } from "vitest";
 import { homeEnvironment } from "./environment";
 import type { Device } from "../types/device";
+it("獨立功率感測器不會被當成家庭溫濕度來源", () => {
+  const power = {
+    type: "sensor",
+    available: true,
+    attributes: { power_w: 20 },
+  } as Device;
+  expect(homeEnvironment([power])).toBeUndefined();
+});
 it("家庭環境優先除濕機且斷線不沿用舊值", () => {
   const sensor = {
     id: "s",

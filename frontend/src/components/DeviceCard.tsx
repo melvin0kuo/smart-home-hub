@@ -7,7 +7,6 @@ import {
   Radio,
   Wind,
   Thermometer,
-  Battery,
   ArrowUpRight,
 } from "lucide-react";
 import { canControl, type Action, type Device } from "../types/device";
@@ -15,6 +14,7 @@ import { CameraPlayer } from "./CameraPlayer";
 import { DehumidifierControls } from "./DehumidifierControls";
 import { DiffuserSettings } from "./DiffuserSettings";
 import { CameraControls } from "./CameraControls";
+import { SensorReadings } from "./SensorReadings";
 const icons: Record<string, typeof Plug> = {
   power_strip: Plug,
   light: LampDesk,
@@ -177,6 +177,21 @@ export function DeviceCard({
               : "Home Assistant"}
         </span>
       </p>
+      {device.capabilities.some(
+        (c) => c.name === "switch" && c.target === "main",
+      ) &&
+        !canControl(device, "switch") && (
+          <p className="detail-notice">
+            {!device.available || device.stale
+              ? "電源狀態待確認"
+              : device.state === "on"
+                ? "電源已開啟"
+                : device.state === "off"
+                  ? "電源已關閉"
+                  : "電源狀態待確認"}{" "}
+            · 唯讀
+          </p>
+        )}
       {device.type === "power_strip" && (
         <div className="outlets">
           {device.attributes.outlets?.map((o) => (
@@ -244,7 +259,8 @@ export function DeviceCard({
           )}
         </div>
       )}
-      {["sensor", "dehumidifier"].includes(device.type) && (
+      {device.type === "sensor" && <SensorReadings device={device} />}
+      {device.type === "dehumidifier" && (
         <div className="sensor-values">
           <div>
             <Thermometer size={17} />
@@ -262,24 +278,18 @@ export function DeviceCard({
             </strong>
             <span>相對濕度</span>
           </div>
-          {device.type === "sensor" ? (
-            <p>
-              <Battery size={15} /> 電量 {device.attributes.battery ?? "—"}%
-            </p>
-          ) : (
-            <p
-              role={
-                device.attributes.water_tank_full === true ? "alert" : undefined
-              }
-            >
-              <Droplets size={15} />
-              {device.attributes.water_tank_full === true
-                ? "水箱已滿，請檢查並倒水"
-                : device.attributes.water_tank_full === false
-                  ? "水箱未滿"
-                  : "水箱狀態待確認"}
-            </p>
-          )}
+          <p
+            role={
+              device.attributes.water_tank_full === true ? "alert" : undefined
+            }
+          >
+            <Droplets size={15} />
+            {device.attributes.water_tank_full === true
+              ? "水箱已滿，請檢查並倒水"
+              : device.attributes.water_tank_full === false
+                ? "水箱未滿"
+                : "水箱狀態待確認"}
+          </p>
         </div>
       )}
       {device.type === "dehumidifier" && (
@@ -509,7 +519,12 @@ export function DeviceCard({
               {device.type === "light"
                 ? device.source === "mock"
                   ? "燈光設定為模擬範圍"
-                  : "已驗證的燈光控制"
+                  : device.capabilities.some(
+                        (c) =>
+                          c.writable && c.verification_status === "verified",
+                      )
+                    ? "已驗證的燈光控制"
+                    : "唯讀狀態 · 控制待驗證"
                 : "功能依驗證結果開放"}
             </span>
             <ArrowUpRight size={15} />

@@ -3,10 +3,12 @@ from time import time
 from uuid import uuid4
 
 from sqlalchemy import create_engine, delete, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app.core.errors import HubError
 from app.models.device import Device, now
-from app.models.storage import Base, DeviceRecord, OperationLog, SessionRecord
+from app.models.storage import Base, DeviceRecord, ImportedDevice, OperationLog, SessionRecord
 
 
 class Repository:
@@ -27,6 +29,24 @@ class Repository:
         with Session(self.engine) as db:
             rows = db.scalars(select(DeviceRecord).where(DeviceRecord.key.startswith(f"{self.mode}:")))
             return [row.payload for row in rows]
+
+    def imports(self) -> list[dict]:
+        with Session(self.engine) as db:
+            rows = db.scalars(select(ImportedDevice).where(ImportedDevice.key.startswith(f"{self.mode}:")))
+            return [row.payload for row in rows]
+
+    def save_imports(self, records):
+        try:
+            with Session(self.engine) as db:
+                for record in records:
+                    db.add(
+                        ImportedDevice(
+                            key=f"{self.mode}:{record.entities['main']}", payload=record.model_dump()
+                        )
+                    )
+                db.commit()
+        except IntegrityError:
+            raise HubError(409, "ALREADY_IMPORTED", "此實體已匯入，請重新整理列表。") from None
 
     def log(self, device_id: str, action: str, target: str, status: str, code: str | None = None):
         operation_id = uuid4().hex

@@ -48,7 +48,6 @@ class Settings(BaseSettings):
                 or parsed.query
                 or parsed.fragment
                 or not self.ha_token.get_secret_value()
-                or not self.hub_mapping_file
             ):
-                raise ValueError("Real Mode 需要合法 HA URL、Token 與私有映射檔")
+                raise ValueError("Real Mode 需要合法 HA URL 與 Token")
         return self
