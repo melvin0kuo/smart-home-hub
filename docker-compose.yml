@@ -1,0 +1,28 @@
+name: smart-home-hub
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      HUB_DATABASE_URL: sqlite:////app/data/hub.db
+      HUB_SERVE_FRONTEND: "false"
+    volumes:
+      - hub-data:/app/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  hub-data:
