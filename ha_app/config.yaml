@@ -1,0 +1,34 @@
+name: Smart Home Hub
+version: "0.1.1"
+slug: smart_home_hub
+description: 繁體中文智慧家庭網頁與 FastAPI，透過既有 HA 整合控制設備。
+url: https://github.com/melvin0kuo/smart-home-hub
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: manual
+init: false
+ports:
+  8000/tcp: 8099
+ports_description:
+  8000/tcp: 自製平台網頁（需要平台管理員登入）
+webui: http://[HOST]:[PORT:8000]/
+options:
+  mode: mock
+  admin_password: ""
+  ha_url: http://homeassistant:8123
+  ha_token: ""
+  ha_browser_url: ""
+  allowed_origins:
+    - http://homeassistant.local:8099
+  mapping_json: ""
+schema:
+  mode: list(mock|real)
+  admin_password: password
+  ha_url: str
+  ha_token: password
+  ha_browser_url: str
+  allowed_origins:
+    - str
+  mapping_json: str

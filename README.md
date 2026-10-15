@@ -4,6 +4,8 @@
 
 **v0.1.0 · 第一個公開預覽版本**
 
+HA OS 開發部署：新增 [Smart Home Hub App](ha_app/README.md)，可在樹莓派與 HA 同機執行網頁及後端。請閱讀設定、資料移轉與 BLE 限制；實機狀態以部署驗證紀錄為準。
+
 以繁體中文操作的智慧家庭整合平台：React + TypeScript 前端、FastAPI 後端，透過 Home Assistant 統一管理設備，另提供可選的米家香氛機本機藍牙整合。首頁使用精簡捷徑，手機開啟全螢幕控制，平板與電腦使用右側詳情。
 
 > 沒有設備也能先跑 Mock Mode。Real Mode 必須準備自己的 Home Assistant、帳號、Token 與 Entity 映射。範例資料不代表實機支援；本專案沒有隨附任何帳號、密碼或家庭設定。
