@@ -8,7 +8,7 @@ Home Assistant 與本平台分開安裝，不需要安裝進 FastAPI 的 Python 
 - Windows：依 [官方 VM 指南](https://www.home-assistant.io/installation/windows/) 下載 VirtualBox／VMware／Hyper-V 對應映像，配置 UEFI、CPU、記憶體與網路，再使用 VM 顯示的 IP 設定。NAT／網路隔離可能阻止設備探索。
 - Linux：依 [官方 Container 指南](https://www.home-assistant.io/installation/linux/) 安裝 Docker、掛載持久 config、配置區域網路，再啟動官方映像。Container 沒有 HA OS Supervisor／Apps，USB、Bluetooth、D-Bus、Matter 與 mDNS 需自行配置。
 
-建立自己的 HA 帳號、家庭、時區與備份後才加入設備。HA OS 是專用系統；第一版建議 HA 放樹莓派，本平台跑電腦。本 repo 沒有 HA OS App。
+建立自己的 HA 帳號、家庭、時區與備份後才加入設備。HA OS 是專用系統；v0.1.0 可先讓本平台跑電腦，最新開發版另提供 [HA OS App](../ha_app/README.md)，可讓網頁與後端同機執行。
 
 ## 可選 WSL 本機試用
 

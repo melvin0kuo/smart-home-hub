@@ -2,6 +2,8 @@
 
 在 HA OS 上執行自製 React 網頁與 FastAPI，與 Home Assistant 分開登入。初版包含網頁、後端、SQLite 與 HA 連線，尚未包含香氛機直接藍牙 Provider。
 
+2026-10-16：App 0.1.1 已在 Raspberry Pi 4／aarch64 完成原生建置、Real Mode 啟動、登入保護與重啟持久化驗證；未進行實機電源切換。不是全部型號／全部控制功能的驗證。
+
 ## 安裝
 
 1. HA「設定 → 應用程式 → 應用程式商店」的儲存庫加入 `https://github.com/melvin0kuo/smart-home-hub`。
