@@ -9,3 +9,6 @@ v0.1.0 未完成樹莓派／arm64 實測。建議 HA OS 放樹莓派，本平台
 重新建立 venv、依賴與 npm ci，不複製 Windows venv／node_modules。以私有通道移轉設定，調整 URL／路徑，重新查核 Entity 與重要電源保護。BLE 另測 Linux／BlueZ、距離、權限及容器 D-Bus，只跑一個 worker。
 
 驗證順序：Mock → HA 唯讀 → 非重要負載 → 攝影機 → BLE → 重開機／斷線／備份還原。完成後才宣稱該部署支援。
+
+
+2026-10-16：App 0.1.2 已完成 Raspberry Pi 4／aarch64 原生更新與環境歷史驗證。溫濕度曲線可透過私人 Tailscale 網址查看，HA 詳細歷史已補入平台 SQLite；重啟 App 後原始筆數、最早時間與登入工作階段保留。此處驗證的是 App 重啟，不是整台樹莓派斷電測試。詳見 [環境歷史紀錄](SENSOR_HISTORY.md)。
