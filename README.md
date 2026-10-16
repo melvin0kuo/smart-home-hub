@@ -179,7 +179,7 @@ npm run lint
 npm run build
 ```
 
-發布前本機結果：後端 58 項、前端 18 項通過；Lint、TypeScript 與 Vite Build 通過。Vite 仍有產物大小提示。安裝可選 BLE 依賴後才會執行其工作階段測試。
+環境歷史功能更新的本機結果：後端 105 項、前端 29 項通過；Lint、TypeScript 與 Vite Build 通過。Vite 仍有產物大小提示。安裝可選 BLE 依賴後才會執行其工作階段測試。
 
 E2E 僅能對 **Mock** 環境執行，不能拿真實設備當測試開關。CI 驗證原始碼與建置，不等於設備、實體手機或樹莓派測試。
 
@@ -193,6 +193,7 @@ docs/          安裝、架構、API 與設備文件
 
 ## 文件與第一版範圍
 
+- [環境歷史曲線、SQLite 保存與備份](docs/SENSOR_HISTORY.md)
 - [從零設定設備與映射](docs/SETUP_GUIDE.md)
 - [系統架構](docs/ARCHITECTURE.md)／[API 設計](docs/API_DESIGN.md)
 - [環境檢查](docs/ENVIRONMENT_CHECK.md)／[開發計畫](docs/DEVELOPMENT_PLAN.md)
