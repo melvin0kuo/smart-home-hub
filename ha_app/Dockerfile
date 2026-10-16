@@ -1,6 +1,6 @@
 FROM node:24-bookworm-slim AS frontend
 # 固定公開原始碼版本，避免建置時追蹤可變動的 main。
-ADD https://codeload.github.com/melvin0kuo/smart-home-hub/tar.gz/42d80195ab751a0ab25b3bc53d2900c533966008 /tmp/source.tar.gz
+ADD https://codeload.github.com/melvin0kuo/smart-home-hub/tar.gz/b2dfa21eb34863a06d10e6ab827a5bd617a12690 /tmp/source.tar.gz
 RUN mkdir /source && tar -xzf /tmp/source.tar.gz -C /source --strip-components=1
 WORKDIR /source/frontend
 RUN npm ci && npm run build
