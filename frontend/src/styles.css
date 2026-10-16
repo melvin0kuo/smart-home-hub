@@ -1568,3 +1568,17 @@ nav button.selected {
 .diffuser-settings .secondary-action {
   min-height: 44px;
 }
+
+/* 感測器歷史以獨立圖表呈現，手機與平板保持可讀。 */
+.sensor-history { padding: 20px; border: 1px solid var(--border, #80808030); border-radius: 20px; margin-top: 16px; min-width: 0; }
+.sensor-history header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.sensor-history h3 { margin: 0; }
+.sensor-history p { font-size: .8rem; opacity: .75; line-height: 1.7; }
+.history-ranges { display: flex; gap: 6px; flex-wrap: wrap; }
+.history-ranges button { padding: 8px 12px; border: 1px solid #80808040; border-radius: 10px; color: inherit; background: transparent; min-height: 44px; }
+.history-ranges button[aria-pressed="true"] { background: #399bb422; border-color: #399bb4; }
+.sensor-history-plot { margin: 22px 0 4px; }
+.sensor-history-plot figcaption { font-weight: 600; font-size: .9rem; }
+.sensor-history-plot figcaption span { display: block; font-weight: 400; font-size: .75rem; opacity: .7; margin-top: 4px; }
+.sensor-history-plot svg { display: block; width: 100%; height: auto; min-height: 160px; overflow: visible; }
+@media (max-width: 600px) { .sensor-history { padding: 14px; } .history-ranges { width: 100%; } .history-ranges button { flex: 1; } }

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowLeft } from "lucide-react";
 import type { Action, Device } from "../types/device";
 import { DeviceCard } from "./DeviceCard";
+import { SensorHistory } from "./SensorHistory";
 
 export function DeviceDetails({
   device,
@@ -78,6 +79,9 @@ export function DeviceDetails({
           </p>
         ) : null}
         <DeviceCard device={device} readOnly={readOnly} onAction={onAction} />
+        {device.capabilities.some((cap) =>
+          ["temperature_sensor", "humidity_sensor"].includes(cap.name),
+        ) && <SensorHistory device={device} />}
         {device.type === "gateway" && (
           <button
             className="secondary-action"

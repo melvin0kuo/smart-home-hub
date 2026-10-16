@@ -11,6 +11,17 @@ from app.models.device import Action
 router = APIRouter()
 
 
+@router.get("/api/devices/{device_id}/history")
+async def sensor_history(device_id: str, request: Request, hours: int = Query(24, ge=1, le=720)):
+    request.app.state.security.require(request)
+    devices = await request.app.state.provider.devices()
+    if not any(device.id == device_id for device in devices):
+        raise HubError(404, "DEVICE_NOT_FOUND", "找不到設備。")
+    result = await asyncio.to_thread(request.app.state.repository.measurements, device_id, hours)
+    result["sync_failed"] = request.app.state.sensor_history.sync_failed
+    return result
+
+
 class Login(BaseModel):
     model_config = ConfigDict(extra="forbid")
     username: str = Field(max_length=64)

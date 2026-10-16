@@ -268,7 +268,7 @@ export function DeviceCard({
               {device.attributes.temperature ?? "—"}
               <small>°C</small>
             </strong>
-            <span>室內溫度</span>
+            <span>溫度</span>
           </div>
           <div>
             <Droplets size={17} />

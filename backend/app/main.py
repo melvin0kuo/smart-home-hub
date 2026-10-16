@@ -17,6 +17,7 @@ from app.services.devices import DeviceService
 from app.services.events import EventBus
 from app.services.imports import ImportService
 from app.services.repository import Repository
+from app.services.sensor_history import SensorHistory
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -44,10 +45,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.cameras = CameraGateway()
         app.state.devices = DeviceService(provider, repository, bus)
         app.state.imports = ImportService(provider, repository, bus, settings.hub_mode)
+        app.state.sensor_history = SensorHistory(provider, repository)
+        history_task = asyncio.create_task(app.state.sensor_history.run())
         task = asyncio.create_task(provider.run()) if settings.hub_mode == "real" else None
         try:
             yield
         finally:
+            history_task.cancel()
+            await asyncio.gather(history_task, return_exceptions=True)
             if task:
                 task.cancel()
                 await asyncio.gather(task, return_exceptions=True)

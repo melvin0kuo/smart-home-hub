@@ -7,6 +7,7 @@ import type {
 } from "../types/device";
 import type { ImportDiscovery, ImportItem } from "../types/imports";
 import type { OnboardingData } from "../types/onboarding";
+import type { SensorHistoryData } from "../types/history";
 let csrf = "";
 export class ApiError extends Error {
   constructor(
@@ -50,6 +51,10 @@ async function session(path: string, body?: unknown) {
   return result;
 }
 export const api = {
+  sensorHistory: (id: string, hours: number) =>
+    request<SensorHistoryData>(
+      `/devices/${encodeURIComponent(id)}/history?hours=${hours}`,
+    ),
   onboarding: () =>
     request<OnboardingData>("/integrations/home-assistant/onboarding"),
   importCandidates: () =>

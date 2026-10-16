@@ -6,6 +6,21 @@ class Base(DeclarativeBase):
     pass
 
 
+class SensorMeasurement(Base):
+    __tablename__ = "sensor_measurements"
+    mode: Mapped[str] = mapped_column(String, primary_key=True)
+    device_id: Mapped[str] = mapped_column(String, primary_key=True)
+    metric: Mapped[str] = mapped_column(String, primary_key=True)
+    occurred_at: Mapped[float] = mapped_column(Float, primary_key=True, index=True)
+    value: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+
+class SensorCursor(Base):
+    __tablename__ = "sensor_history_cursors"
+    key: Mapped[str] = mapped_column(String, primary_key=True)
+    synced_until: Mapped[float] = mapped_column(Float)
+
+
 class SessionRecord(Base):
     __tablename__ = "sessions"
     token_hash: Mapped[str] = mapped_column(String, primary_key=True)
